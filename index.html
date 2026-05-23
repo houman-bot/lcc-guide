@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCC攻略ガイド — 世界の格安航空券まとめ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --surface2: #f0ede6;
+    --border: rgba(0,0,0,0.10);
+    --border-strong: rgba(0,0,0,0.18);
+    --text: #1a1814;
+    --text2: #6b6760;
+    --text3: #9e9b96;
+    --accent: #1a4a2e;
+    --accent-light: #e8f0eb;
+    --accent2: #c8521a;
+    --accent2-light: #faeee7;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-pill: 999px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ——— NAV ——— */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,245,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; gap: 2rem;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; color: var(--text); text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 4px; flex: 1; overflow-x: auto; }
+  .nav-link {
+    padding: 6px 14px; border-radius: var(--radius-pill); font-size: 13px;
+    color: var(--text2); text-decoration: none; white-space: nowrap;
+    transition: all 0.15s; cursor: pointer; border: none; background: none;
+  }
+  .nav-link:hover, .nav-link.active { background: var(--surface); color: var(--text); }
+  .nav-link.active { font-weight: 500; }
+
+  /* ——— HERO ——— */
+  .hero {
+    padding: 5rem 2rem 3rem;
+    max-width: 900px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500;
+    background: var(--accent-light);
+    padding: 4px 12px; border-radius: var(--radius-pill);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.15; color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 16px; color: var(--text2); max-width: 540px;
+    margin-bottom: 2rem; line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .hero-stat { }
+  .hero-stat-val { font-size: 28px; font-weight: 500; color: var(--text); line-height: 1; }
+  .hero-stat-label { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+  /* ——— SECTION ——— */
+  .section {
+    max-width: 1000px; margin: 0 auto;
+    padding: 1rem 2rem 4rem;
+  }
+  .section-header {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 1.5rem; padding-bottom: 1rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--text);
+  }
+  .section-count {
+    font-size: 13px; color: var(--text3);
+  }
+
+  /* ——— SEARCH + FILTERS ——— */
+  .toolbar {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 1.25rem; align-items: center;
+  }
+  .search-wrap {
+    position: relative; flex: 1; min-width: 200px;
+  }
+  .search-wrap i {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 15px; color: var(--text3); pointer-events: none;
+  }
+  .search-input {
+    width: 100%; padding: 9px 14px 9px 36px;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--border-strong);
+    background: var(--surface);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text);
+    transition: border-color 0.15s;
+  }
+  .search-input:focus { outline: none; border-color: var(--accent); }
+  .search-input::placeholder { color: var(--text3); }
+
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill {
+    padding: 6px 14px; border-radius: var(--radius-pill);
+    font-size: 13px; border: 0.5px solid var(--border-strong);
+    background: var(--surface); color: var(--text2);
+    cursor: pointer; transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .pill:hover { border-color: var(--accent); color: var(--accent); }
+  .pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ——— CARDS GRID ——— */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.25rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .card:hover { border-color: var(--border-strong); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+  .card-flag {
+    position: absolute; top: 0; right: 0;
+    width: 48px; height: 48px; overflow: hidden;
+    border-radius: 0 var(--radius) 0 var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    opacity: 0.15;
+  }
+
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .card-route { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.3; }
+  .card-route .arrow { color: var(--text3); font-weight: 300; margin: 0 4px; }
+
+  .badge {
+    font-size: 11px; font-weight: 500; padding: 3px 9px;
+    border-radius: var(--radius-pill); white-space: nowrap;
+  }
+  .badge-cheap { background: #e4f2e4; color: #1f6b1f; }
+  .badge-mid { background: #faeeda; color: #854f0b; }
+  .badge-high { background: #fce8e8; color: #992020; }
+  .badge-region { background: var(--surface2); color: var(--text2); }
+
+  .card-airlines { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+  .airline-chip {
+    font-size: 11px; padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    border: 0.5px solid var(--border-strong);
+    color: var(--text2); background: var(--surface2);
+  }
+
+  .card-meta { display: flex; gap: 14px; font-size: 12px; color: var(--text2); margin-bottom: 10px; flex-wrap: wrap; }
+  .card-meta i { font-size: 13px; vertical-align: -2px; margin-right: 3px; }
+  .best-month-label { color: var(--accent); font-weight: 500; }
+
+  /* month bar chart */
+  .month-chart { margin-bottom: 10px; }
+  .month-bars { display: flex; gap: 2px; align-items: flex-end; height: 32px; }
+  .bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; }
+  .bar { width: 100%; border-radius: 2px 2px 0 0; min-height: 3px; }
+  .bar-lbl { font-size: 8px; color: var(--text3); }
+
+  .card-tip {
+    font-size: 12px; color: var(--text2);
+    padding: 7px 10px;
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--border-strong);
+    line-height: 1.5;
+  }
+  .card-tip i { font-size: 12px; vertical-align: -2px; margin-right: 4px; color: var(--accent); }
+
+  /* ——— ROUTE TAG (connecting flights) ——— */
+  .via-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; padding: 3px 9px;
+    background: var(--accent2-light); color: var(--accent2);
+    border-radius: var(--radius-pill); margin-bottom: 8px;
+  }
+  .via-tag i { font-size: 12px; }
+
+  /* ——— AIRLINE CARDS ——— */
+  .airline-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .airline-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.1rem 1.25rem;
+    transition: border-color 0.15s;
+  }
+  .airline-card:hover { border-color: var(--border-strong); }
+  .airline-icon {
+    width: 40px; height: 40px; border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 10px;
+  }
+  .airline-name { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+  .airline-hub { font-size: 12px; color: var(--text3); margin-bottom: 10px; }
+  .airline-detail { font-size: 12px; color: var(--text2); margin-bottom: 6px; display: flex; gap: 8px; }
+  .airline-detail i { font-size: 13px; color: var(--text3); flex-shrink: 0; margin-top: 1px; }
+
+  /* ——— TIPS ——— */
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .tip-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.1rem 1.25rem;
+  }
+  .tip-icon-wrap {
+    width: 38px; height: 38px; border-radius: var(--radius-sm);
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px;
+  }
+  .tip-icon-wrap i { font-size: 18px; color: var(--accent); }
+  .tip-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .tip-body { font-size: 13px; color: var(--text2); line-height: 1.65; }
+
+  /* ——— MONTH CALENDAR TABLE ——— */
+  .month-table-wrap { overflow-x: auto; margin-bottom: 2rem; }
+  .month-table {
+    width: 100%; border-collapse: collapse; font-size: 12px;
+    background: var(--surface); border-radius: var(--radius);
+    overflow: hidden; border: 0.5px solid var(--border);
+  }
+  .month-table th, .month-table td {
+    padding: 8px 6px; text-align: center;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .month-table th { background: var(--surface2); font-weight: 500; color: var(--text2); font-size: 11px; }
+  .month-table td:first-child { text-align: left; padding-left: 12px; font-weight: 500; color: var(--text); white-space: nowrap; }
+  .price-cell { border-radius: 4px; padding: 4px 6px !important; font-weight: 500; }
+
+  /* ——— EMPTY ——— */
+  .empty { text-align: center; padding: 4rem 2rem; color: var(--text3); }
+  .empty i { font-size: 32px; display: block; margin-bottom: 10px; }
+
+  /* ——— FOOTER ——— */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    font-size: 13px; color: var(--text3);
+    background: var(--surface);
+    margin-top: 2rem;
+  }
+  footer strong { color: var(--text2); }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; gap: 1rem; }
+    .hero { padding: 3rem 1rem 2rem; }
+    .section { padding: 0.5rem 1rem 3rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero-stats { gap: 1.25rem; }
+  }
+
+  /* ——— ANIMATIONS ——— */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.4s ease both; }
+  .hero h1 { animation: fadeUp 0.5s 0.05s ease both; }
+  .hero-sub { animation: fadeUp 0.5s 0.1s ease both; }
+  .hero-stats { animation: fadeUp 0.5s 0.15s ease both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#top">✈ <span>LCC</span>攻略</a>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showSection('japan')">🇯🇵 国内線</button>
+    <button class="nav-link" onclick="showSection('asia')">🌏 アジア</button>
+    <button class="nav-link" onclick="showSection('connect')">🔀 乗り継ぎ最安</button>
+    <button class="nav-link" onclick="showSection('europe')">🇪🇺 ヨーロッパ</button>
+    <button class="nav-link" onclick="showSection('calendar')">📅 月別カレンダー</button>
+    <button class="nav-link" onclick="showSection('airlines')">✈ 航空会社</button>
+    <button class="nav-link" onclick="showSection('tips')">💡 節約テク</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-eyebrow">無料・広告なし・随時更新</div>
+  <h1>世界を安く飛ぼう<br><em>LCC完全攻略ガイド</em></h1>
+  <p class="hero-sub">国内から海外まで、LCCで賢く旅する人のための路線・時期・テクニックまとめサイト。</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-val" id="total-routes">—</div><div class="hero-stat-label">収録路線数</div></div>
+    <div class="hero-stat"><div class="hero-stat-val" id="total-airlines">—</div><div class="hero-stat-label">掲載航空会社</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">5</div><div class="hero-stat-label">対応エリア</div></div>
+  </div>
+</div>
+
+<!-- ===== JAPAN DOMESTIC ===== -->
+<div class="section" id="section-japan">
+  <div class="section-header">
+    <h2 class="section-title">🇯🇵 国内線</h2>
+    <span class="section-count" id="count-japan"></span>
+  </div>
+  <div class="toolbar">
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input class="search-input" type="text" placeholder="出発地・目的地・航空会社で検索..." oninput="filterSection('japan')" id="q-japan">
+    </div>
+    <div class="pills" id="pills-japan-area"></div>
+  </div>
+  <div class="cards" id="cards-japan"></div>
+</div>
+
+<!-- ===== ASIA ===== -->
+<div class="section" id="section-asia" style="display:none">
+  <div class="section-header">
+    <h2 class="section-title">🌏 アジア路線</h2>
+    <span class="section-count" id="count-asia"></span>
+  </div>
+  <div class="toolbar">
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input class="search-input" type="text" placeholder="出発地・目的地・航空会社で検索..." oninput="filterSection('asia')" id="q-asia">
+    </div>
+    <div class="pills" id="pills-asia-area"></div>
+  </div>
+  <div class="cards" id="cards-asia"></div>
+</div>
+
+<!-- ===== CONNECT ===== -->
+<div class="section" id="section-connect" style="display:none">
+  <div class="section-header">
+    <h2 class="section-title">🔀 乗り継ぎ最安ルート</h2>
+    <span class="section-count" id="count-connect"></span>
+  </div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:1.25rem">LCC×LCCまたはLCC×FSCの組み合わせで、日本↔ヨーロッパ・世界各地を格安移動するルートまとめ。</p>
+  <div class="toolbar">
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input class="search-input" type="text" placeholder="目的地・経由地で検索..." oninput="filterSection('connect')" id="q-connect">
+    </div>
+  </div>
+  <div class="cards" id="cards-connect"></div>
+</div>
+
+<!-- ===== EUROPE ===== -->
+<div class="section" id="section-europe" style="display:none">
+  <div class="section-header">
+    <h2 class="section-title">🇪🇺 ヨーロッパ域内</h2>
+    <span class="section-count" id="count-europe"></span>
+  </div>
+  <div class="toolbar">
+    <div class="search-wrap">
+      <i class="ti ti-search"></i>
+      <input class="search-input" type="text" placeholder="出発地・目的地・航空会社で検索..." oninput="filterSection('europe')" id="q-europe">
+    </div>
+    <div class="pills" id="pills-europe-area"></div>
+  </div>
+  <div class="cards" id="cards-europe"></div>
+</div>
+
+<!-- ===== CALENDAR ===== -->
+<div class="section" id="section-calendar" style="display:none">
+  <div class="section-header">
+    <h2 class="section-title">📅 月別格安カレンダー</h2>
+  </div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:1.5rem">各路線の月別相対価格指数（100=平均）。緑が安い月、赤が高い月。</p>
+  <div class="month-table-wrap">
+    <table class="month-table" id="cal-table"></table>
+  </div>
+</div>
+
+<!-- ===== AIRLINES ===== -->
+<div class="section" id="section-airlines" style="display:none">
+  <div class="section-header">
+    <h2 class="section-title">✈ 航空会社ガイド</h2>
+  </div>
+  <div class="airline-cards" id="airline-cards"></div>
+</div>
+
+<!-- ===== TIPS ===== -->
+<div class="section" id="section-tips" style="display:none">
+  <div class="section-header">
+    <h2 class="section-title">💡 節約テクニック</h2>
+  </div>
+  <div class="tips-grid" id="tips-grid"></div>
+</div>
+
+<footer>
+  <strong>LCC攻略ガイド</strong> — 価格は目安です。実際の運賃は各航空会社公式サイトでご確認ください。<br>
+  <span style="font-size:11px;margin-top:6px;display:block">航空会社の運航状況・料金は予告なく変更される場合があります。</span>
+</footer>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const JAPAN = [
+  { from:"東京(成田/羽田)", to:"札幌", area:"北海道", airlines:["Peach","Jetstar","Spring"], bestMonths:["1","2","6","11"], price:"cheap", months:[60,55,65,85,90,95,120,115,80,75,60,58], tip:"Peachが最安値を出しやすい。2ヶ月前予約でセール価格を狙う。" },
+  { from:"東京", to:"沖縄", area:"沖縄", airlines:["Peach","Jetstar","ANA(LL)"], bestMonths:["1","2","11","12"], price:"cheap", months:[70,65,75,90,100,110,150,145,100,85,68,65], tip:"夏休み・GWは避けて。2月は閑散期で片道2,000円台が出ることも。" },
+  { from:"東京", to:"大阪(関空)", area:"関西", airlines:["Peach","Jetstar"], bestMonths:["1","2","11"], price:"cheap", months:[40,38,45,58,65,70,85,80,60,50,38,36], tip:"新幹線より安い場合多数。手荷物は機内持込だけで抑えれば最安。" },
+  { from:"東京", to:"福岡", area:"九州", airlines:["Jetstar","Peach","Spring"], bestMonths:["1","2","11"], price:"cheap", months:[55,52,60,75,85,90,110,105,80,68,52,50], tip:"深夜・早朝便がさらに安い。福岡空港は地下鉄直結で便利。" },
+  { from:"大阪(関空)", to:"沖縄", area:"沖縄", airlines:["Peach","Jetstar"], bestMonths:["1","2","11","12"], price:"cheap", months:[65,60,68,82,92,100,135,130,95,78,62,60], tip:"Peach本拠地発で頻繁にセール。関空第2ターミナルに注意。" },
+  { from:"東京", to:"鹿児島", area:"九州", airlines:["Jetstar","Peach","Skymark"], bestMonths:["1","2","11"], price:"cheap", months:[48,45,52,68,78,82,100,95,72,60,46,44], tip:"Skymarkは手荷物が少し使いやすい。Jetstarはセール頻度高い。" },
+  { from:"東京", to:"仙台", area:"東北", airlines:["Jetstar","Peach","ANA(LL)"], bestMonths:["1","2","6","11"], price:"cheap", months:[35,32,40,55,62,68,90,85,60,50,33,30], tip:"東北最安ルート。1時間前後の超短距離路線。" },
+  { from:"大阪", to:"那覇", area:"沖縄", airlines:["Peach"], bestMonths:["1","2","11"], price:"cheap", months:[62,58,65,80,90,98,132,128,92,76,60,58], tip:"Peachが圧倒的シェア。早めの予約でセール価格が狙いやすい。" },
+  { from:"名古屋(中部)", to:"福岡", area:"九州", airlines:["Jetstar","Peach"], bestMonths:["1","2","11"], price:"cheap", months:[42,40,48,62,70,75,92,88,65,54,40,38], tip:"新幹線との比較必須。深夜発は特に安い。" },
+  { from:"東京", to:"宮崎", area:"九州", airlines:["Jetstar","Peach"], bestMonths:["1","2","11"], price:"cheap", months:[50,48,56,70,80,85,105,100,75,64,48,46], tip:"新幹線がない分、LCCが主役。サーフィン旅行に人気。" },
+];
+
+const ASIA = [
+  { from:"東京", to:"ソウル", area:"韓国", airlines:["Peach","Jeju Air","T'way"], bestMonths:["1","2","6","11"], price:"cheap", months:[65,60,70,85,95,100,115,110,90,80,62,60], tip:"韓国LCC(ジェジュ航空等)も活用。成田発が最安値多い。" },
+  { from:"東京", to:"台北", area:"台湾", airlines:["Peach","Scoot","Tigerair"], bestMonths:["1","2","11"], price:"cheap", months:[75,70,80,100,110,115,130,125,105,90,72,68], tip:"Peachが成田-桃園を毎日運航。桃園から市内は台北捷運40分。" },
+  { from:"東京", to:"香港", area:"香港", airlines:["HK Express","Cathay Pacific(LL)"], bestMonths:["1","2","11","12"], price:"mid", months:[95,88,98,115,125,130,145,140,120,105,90,92], tip:"HK Expressが唯一の本格LCC。香港エクスプレスパスで乗り放題も。" },
+  { from:"大阪", to:"バンコク", area:"タイ", airlines:["Scoot","AirAsia X","Peach(経由)"], bestMonths:["1","2","11","12"], price:"mid", months:[110,105,115,130,140,145,160,155,135,120,108,112], tip:"Scootがシンガポール経由で比較的安い。直行LCCは限られる。" },
+  { from:"東京", to:"シンガポール", area:"東南アジア", airlines:["Scoot","Jetstar","Singapore Airlines(LL)"], bestMonths:["1","2","11"], price:"mid", months:[120,115,125,145,155,162,175,170,150,135,118,120], tip:"Scootは成田発直行。シンガポール乗り継ぎでさらに先へも可能。" },
+  { from:"東京", to:"マニラ", area:"フィリピン", airlines:["Cebu Pacific","Philippines AirAsia","PAL(LL)"], bestMonths:["1","2","11"], price:"mid", months:[100,95,105,125,135,140,155,150,130,115,98,100], tip:"セブ・パシフィックが頻繁にセール。マニラはハブとして乗り継ぎも。" },
+  { from:"東京", to:"クアラルンプール", area:"マレーシア", airlines:["AirAsia X","Malindo Air"], bestMonths:["1","2","11","12"], price:"mid", months:[108,102,112,130,140,148,162,158,138,122,105,108], tip:"AirAsia Xが成田-KL直行。KLからアジア各地に格安乗り継ぎ可能。" },
+  { from:"大阪", to:"ホーチミン", area:"ベトナム", airlines:["VietJet","Scoot","Jetstar Pacific"], bestMonths:["1","2","11","12"], price:"mid", months:[105,100,110,128,138,145,158,154,135,118,102,105], tip:"VietJetが就航拡大中。ベトナムは北部（ハノイ）発着も比較を。" },
+  { from:"東京", to:"バリ島", area:"インドネシア", airlines:["Scoot","Jetstar","Lion Air(経由)"], bestMonths:["1","2","11"], price:"mid", months:[130,125,135,150,162,168,180,175,158,142,128,132], tip:"デンパサール直行LCCは限られる。シンガポール/KL経由が現実的。" },
+  { from:"東京", to:"北京/上海", area:"中国", airlines:["Spring Airlines","Lucky Air","Peach(桃園経由)"], bestMonths:["1","2","11","12"], price:"cheap", months:[80,75,85,100,110,115,130,125,108,95,78,78], tip:"Spring航空（春秋航空）が最安値を誇る。手荷物制限に要注意。" },
+];
+
+const CONNECT = [
+  { from:"東京", to:"ロンドン", via:"ソウル(仁川)", area:"欧州", airlines:["Peach+大韓/アシアナ","Jeju Air+LOT"], bestMonths:["1","2","11"], price:"mid", months:[200,195,210,250,270,285,310,305,270,240,198,202], tip:"成田→仁川(Peach/Jeju)＋仁川→ロンドン(大韓/アシアナ)。乗継時間は最低3時間確保。", isConnect:true },
+  { from:"東京", to:"パリ", via:"クアラルンプール", area:"欧州", airlines:["AirAsia X+AirAsia X","Malindo Air"], bestMonths:["1","2","11"], price:"mid", months:[195,188,205,242,260,275,298,292,262,235,190,196], tip:"成田→KL(AirAsia X)＋KL→パリ(AirAsia X)。KLAでのトランジット6〜12時間推奨。", isConnect:true },
+  { from:"東京", to:"バルセロナ", via:"シンガポール", area:"欧州", airlines:["Scoot+Scoot","Jetstar+Vueling"], bestMonths:["1","11","12"], price:"mid", months:[205,200,215,255,275,290,315,308,275,248,202,208], tip:"Scootが成田→シンガポール→各欧州都市を運航。乗り継ぎが1社で済む。", isConnect:true },
+  { from:"東京", to:"ローマ", via:"ドバイ", area:"欧州", airlines:["Flydubai+Ryanair","Emirates(LL)+easyJet"], bestMonths:["1","2","11"], price:"mid", months:[192,185,200,238,255,268,290,285,258,230,188,194], tip:"ドバイ発欧州LCC(Flydubai)と組み合わせ。ドバイ観光も組み込める。", isConnect:true },
+  { from:"東京", to:"アムステルダム", via:"台北", area:"欧州", airlines:["Peach+KLM(LL)","Tigerair+KLM"], bestMonths:["1","2","11"], price:"mid", months:[198,192,208,248,268,280,305,300,268,240,195,200], tip:"桃園経由でKLMとの共同購入がお得。台北観光も楽しめる。", isConnect:true },
+  { from:"大阪", to:"フランクフルト", via:"バンコク", area:"欧州", airlines:["Scoot+Lufthansa(LL)","Thai AirAsia X+Ryanair"], bestMonths:["1","11","12"], price:"mid", months:[188,182,198,235,252,265,288,282,255,228,185,190], tip:"バンコクDMK発欧州LCCは種類が豊富。Thai AirAsia Xが関空からも就航。", isConnect:true },
+  { from:"東京", to:"ニューヨーク", via:"バンクーバー", area:"北米", airlines:["Zipair+Flair","ANA(LL)+Spirit"], bestMonths:["1","2","11"], price:"high", months:[350,340,365,420,450,480,520,510,460,410,345,352], tip:"Zipairが成田→北米を直行運航開始。さらに国内線LCCで乗り継ぐと安い場合も。", isConnect:true },
+  { from:"東京", to:"ホノルル", via:"直行LCC", area:"北米", airlines:["Zipair","HawaiianAirlines(LL)"], bestMonths:["1","2","11","12"], price:"mid", months:[240,232,250,290,310,325,360,352,318,280,238,245], tip:"ZipairがTOKYO→ホノルル直行。早割で3万円台が出ることも。荷物別途。", isConnect:true },
+  { from:"東京", to:"シドニー", via:"シンガポール/KL", area:"オセアニア", airlines:["Scoot+Scoot","Jetstar Asia+Jetstar"], bestMonths:["1","2","11","12"], price:"mid", months:[225,218,235,272,290,305,330,322,290,260,220,228], tip:"Scoot/JetstarのSIN経由が定番。Jetstarはオーストラリア国内も安い。", isConnect:true },
+  { from:"東京", to:"ケープタウン", via:"ドバイ/クアラルンプール", area:"アフリカ", airlines:["AirAsia X+Flydubai+FlySafair"], bestMonths:["1","2","11","12"], price:"high", months:[420,410,435,495,525,550,590,582,545,498,415,425], tip:"アフリカは乗り継ぎ必須。ドバイ経由またはKL経由が最安ルート候補。", isConnect:true },
+];
+
+const EUROPE = [
+  { from:"ロンドン", to:"バルセロナ", area:"西欧", airlines:["Ryanair","easyJet","Vueling"], bestMonths:["1","2","11"], price:"cheap", months:[90,85,70,110,130,150,160,155,120,100,80,75], tip:"ルートン発Ryanairが最安値。火・水出発が週末比30%安い。" },
+  { from:"ロンドン", to:"アムステルダム", area:"西欧", airlines:["easyJet","Ryanair","Transavia"], bestMonths:["1","2","11","12"], price:"mid", months:[95,90,80,110,130,145,160,155,125,105,85,90], tip:"スタンステッド発が最安。早朝便はさらに安い傾向。" },
+  { from:"ロンドン", to:"ローマ", area:"西欧", airlines:["Ryanair","easyJet","Wizz Air"], bestMonths:["1","2","11"], price:"cheap", months:[80,75,90,120,140,150,165,160,130,100,75,70], tip:"チャンピーノ空港着Ryanairが最安。市内からバスで45分。" },
+  { from:"パリ", to:"リスボン", area:"西欧", airlines:["easyJet","Transavia","TAP(LL)"], bestMonths:["1","2","11"], price:"mid", months:[100,95,85,115,135,150,165,160,130,110,90,95], tip:"オルリー発の便は比較的安い。平日出発で節約。" },
+  { from:"フランクフルト", to:"ワルシャワ", area:"東欧", airlines:["Ryanair","Wizz Air","LOT(LL)"], bestMonths:["1","2","11","12"], price:"cheap", months:[60,55,65,80,95,100,110,105,85,70,55,58], tip:"Wizz AirのWizzPlusで手荷物込みでも安い。" },
+  { from:"ベルリン", to:"プラハ", area:"東欧", airlines:["Ryanair","easyJet","Eurowings"], bestMonths:["1","11","12"], price:"cheap", months:[45,42,50,65,80,90,95,92,75,60,44,42], tip:"2〜3ヶ月前予約が鉄則。フライト時間は1時間弱。" },
+  { from:"ミラノ", to:"アテネ", area:"南欧", airlines:["Ryanair","easyJet","Volotea"], bestMonths:["11","1","2"], price:"mid", months:[85,80,90,110,125,140,155,150,120,100,82,80], tip:"オフシーズン(11〜2月)は観光客も少なく狙い目。" },
+  { from:"マドリード", to:"イスタンブール", area:"南欧", airlines:["Pegasus","Vueling","Turkish(LL)"], bestMonths:["1","2","11","12"], price:"mid", months:[110,105,100,130,145,155,165,160,135,115,100,105], tip:"Pegasusは直行便で価格競争力あり。" },
+  { from:"ストックホルム", to:"コペンハーゲン", area:"北欧", airlines:["Norwegian","Ryanair","SAS Go"], bestMonths:["1","2","11"], price:"mid", months:[90,85,95,115,120,130,125,120,100,90,80,88], tip:"電車も選択肢だが、早割航空券はむしろ安いことも。" },
+  { from:"ヘルシンキ", to:"タリン", area:"北欧", airlines:["Ryanair","Finnair(LL)"], bestMonths:["1","2","11","12"], price:"cheap", months:[50,48,55,70,80,85,90,88,72,60,48,46], tip:"フェリーとも比較を。飛行機は30分、フェリーは2時間だが安い。" },
+  { from:"ウィーン", to:"クロアチア(ザグレブ)", area:"東欧", airlines:["Ryanair","Croatia Airlines","Wizz Air"], bestMonths:["11","12","1","2"], price:"cheap", months:[55,52,60,75,90,100,110,108,88,70,52,50], tip:"ドゥブロブニクへはザグレブ経由が現実的。夏より春秋がベター。" },
+  { from:"ロンドン", to:"エジンバラ", area:"英国内", airlines:["Ryanair","easyJet","Wizz Air"], bestMonths:["1","2","11"], price:"cheap", months:[40,38,45,60,70,75,85,80,65,50,38,36], tip:"電車より安いことが多い。ルートン発Ryanairが最安値。" },
+  { from:"パリ", to:"ニース", area:"西欧", airlines:["easyJet","Transavia","Air France Hop"], bestMonths:["11","1","2"], price:"cheap", months:[65,60,70,85,100,115,130,125,100,80,62,60], tip:"TGVと比較も大事。早割航空券はかなり競争力がある。" },
+  { from:"アムステルダム", to:"リガ", area:"東欧", airlines:["Ryanair","airBaltic"], bestMonths:["1","2","11","12"], price:"cheap", months:[70,65,72,85,95,100,105,102,85,72,65,68], tip:"airBalticは直行が多く使いやすい。ラトビアは物価も安い。" },
+];
+
+const AIRLINES = [
+  { name:"Peach Aviation", hub:"大阪(関空)", flag:"🇯🇵", regions:"日本・韓国・台湾・沖縄", baggage:"7kg込み・受託有料", score:4, tip:"日本最大のLCC。セールは月1〜2回。PeachポイントとANA提携で使いやすい。早割「スーパーピーチ」が最安値。", color:"#ff8fa3", bg:"#fff0f4" },
+  { name:"Jetstar Japan", hub:"成田/関空", flag:"🇯🇵", regions:"日本・グアム・ハワイ", baggage:"7kg込み・受託有料", score:3, tip:"親会社はQantas系。月2回のビッグセールで0円〜が出ることも。マイルはQantasで貯まる。", color:"#f59300", bg:"#fff8e8" },
+  { name:"Spring Airlines", hub:"上海/成田", flag:"🇨🇳", regions:"日本・中国・アジア", baggage:"持込のみ・厳格", score:3, tip:"日中間で最安値を頻繁に出す。手荷物制限が厳しいので注意。中国路線に強い。", color:"#e83c3c", bg:"#ffeaea" },
+  { name:"Ryanair", hub:"ダブリン/スタンステッド", flag:"🇮🇪", regions:"欧州全域", baggage:"40×20×25cm込み・受託有料", score:3, tip:"欧州最安値の代名詞。毎週火曜にセール多発。追加料金に注意。空港は郊外が多い。", color:"#1e3a8a", bg:"#eef2ff" },
+  { name:"easyJet", hub:"ルートン/ガトウィック", flag:"🇬🇧", regions:"西・南欧・北欧", baggage:"機内持込込み・受託有料", score:4, tip:"Ryanairより快適。空港立地が良い。easyJet Plusでさらに快適に使えるオプション有り。", color:"#f86500", bg:"#fff3ea" },
+  { name:"Wizz Air", hub:"ブダペスト", flag:"🇭🇺", regions:"東欧・中欧・中東", baggage:"40×30×20cm込み・受託有料", score:3, tip:"東欧の最安LCC。WizzPlusメンバーは手荷物無料。UAEにも路線を拡大中。", color:"#c026d3", bg:"#fdf4ff" },
+  { name:"Norwegian", hub:"オスロ/ストックホルム", flag:"🇳🇴", regions:"北欧・欧州・一部長距離", baggage:"機内持込込み", score:4, tip:"北欧LCCの雄。品質はやや高め。CashPointで次回割引も。", color:"#dc2626", bg:"#fef2f2" },
+  { name:"AirAsia X", hub:"クアラルンプール", flag:"🇲🇾", regions:"東南アジア・日本・豪州・欧州", baggage:"持込のみ(7kg)・受託別料金", score:4, tip:"長距離LCCの大手。KL乗り継ぎで世界各地へ。ビッグシートで長距離も快適。", color:"#dc2626", bg:"#fef2f2" },
+  { name:"Scoot", hub:"シンガポール", flag:"🇸🇬", regions:"東南アジア・日本・豪州・欧州", baggage:"10kg込み・受託別料金", score:4, tip:"Singapore Airlines系列で品質安定。Scoot+ScootでSIN経由乗り継ぎが1社で完結。", color:"#065f46", bg:"#ecfdf5" },
+  { name:"Zipair", hub:"成田", flag:"🇯🇵", regions:"日本・北米・ハワイ・東南アジア", baggage:"持込のみ(7kg)・受託別料金", score:4, tip:"JAL系列の長距離LCC。成田↔ホノルル・LA・シアトル等を運航。早割で大幅割引。", color:"#1d4ed8", bg:"#eff6ff" },
+  { name:"Pegasus Airlines", hub:"イスタンブール", flag:"🇹🇷", regions:"トルコ・中東・欧州", baggage:"運賃クラスによる", score:3, tip:"イスタンブール経由で中東〜欧州が安くなることも。IST空港は巨大で乗り継ぎに時間を要注意。", color:"#f59e0b", bg:"#fffbeb" },
+  { name:"Cebu Pacific", hub:"マニラ", flag:"🇵🇭", regions:"フィリピン・東南アジア・日本", baggage:"7kg込み・受託別料金", score:3, tip:"フィリピン国内線が抜群に安い。マニラ乗り継ぎで各島へ。ファンシートという上位クラスも。", color:"#fbbf24", bg:"#fffbeb" },
+];
+
+const TIPS = [
+  { icon:"ti-calendar", title:"予約タイミングの法則", body:"国際線は出発の6〜8週間前が平均最安値。国内LCCは3〜4ヶ月前のセール狙いが有効。セールは火・水曜深夜に多い。1月中旬〜2月はオフシーズンのピーク。" },
+  { icon:"ti-clock", title:"出発時間帯の選び方", body:"早朝6時前・深夜22時以降の便は平均20〜30%安い。週の火・水・木出発が金・日より安い傾向。LCCは遅延が多いので乗り継ぎには余裕を持って。" },
+  { icon:"ti-map-pin", title:"空港の選び方", body:"ロンドンはLTN/STN/LGW/LCY/LHRの5空港を比較。パリはCDG/ORY、ミラノはMXP/BGY。東京は成田/羽田で価格差が大きい。第2空港の交通費も計算に入れる。" },
+  { icon:"ti-luggage", title:"手荷物の最適化", body:"LCCの受託荷物は高い(片道10〜50€)。機内持込サイズに収めると大幅節約。1週間の旅行なら機内持込だけで乗り切るパッキング術を習得すべし。" },
+  { icon:"ti-currency-euro", title:"セール情報の追い方", body:"Ryanairは毎週火曜に96時間セールを実施することが多い。easyJetは月1回程度のビッグセール。各社メルマガ登録が最速。Google Flightsの価格追跡も活用。" },
+  { icon:"ti-arrows-exchange", title:"柔軟な行き先選び", body:"Google Flightsの世界地図検索が強力。目的地未定で出発地と日程だけ入力すると最安値の行き先が一覧表示。Skyscannerの「全地域へ」も同様に便利。" },
+  { icon:"ti-repeat", title:"乗り継ぎ活用のコツ", body:"LCC×LCCで乗り継ぐ場合、別々に購入するため最低でも乗継時間を3時間以上確保。荷物の再チェックインも必要。同一航空会社系列なら乗継が楽になる。" },
+  { icon:"ti-gift", title:"マイル・ポイント活用", body:"LCCでもポイントが貯まる（Peach→ANA、Jetstar→Qantas等）。クレジットカードのマイルとの組み合わせで実質無料になることも。年会費との費用対効果を計算。" },
+  { icon:"ti-shield-check", title:"旅行保険の考え方", body:"LCCはキャンセル・遅延のリスクが高い。クレジットカードの付帯保険を確認し、必要なら別途加入。乗り継ぎ便の遅延リスクを考えると保険は重要。" },
+  { icon:"ti-device-mobile", title:"予約はアプリ直接が基本", body:"各LCC公式アプリからの予約が最安値のことが多い。仲介サイトは手数料上乗せあり。ただし比較にはGoogle FlightsやSkyscannerを使ってから公式で購入が鉄則。" },
+];
+
+// ============================================================
+// RENDERING
+// ============================================================
+const MONTHS_LABEL = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
+const MONTHS_KEY   = ["1","2","3","4","5","6","7","8","9","10","11","12"];
+
+function priceLabel(p){ return p==="cheap"?"格安":p==="mid"?"普通":"やや高め"; }
+function priceClass(p){ return p==="cheap"?"badge-cheap":p==="mid"?"badge-mid":"badge-high"; }
+
+function barColor(val, arr){
+  const mn=Math.min(...arr), mx=Math.max(...arr);
+  const r=(val-mn)/(mx-mn);
+  if(r<0.3) return "#3b7c3b";
+  if(r<0.6) return "#b8701a";
+  return "#b83232";
+}
+
+function renderCard(r){
+  const maxV = Math.max(...r.months);
+  const bars = r.months.map((v,i)=>{
+    const h = Math.max(3, Math.round((v/maxV)*32));
+    const good = r.bestMonths.includes(MONTHS_KEY[i]);
+    const c = good ? "#2d6e2d" : barColor(v, r.months);
+    return `<div class="bar-wrap"><div class="bar" style="height:${h}px;background:${c};opacity:${good?1:0.4}"></div><div class="bar-lbl">${MONTHS_KEY[i]}</div></div>`;
+  }).join("");
+  const bestLabel = r.bestMonths.map(m=>MONTHS_LABEL[parseInt(m)-1]).join("・");
+  const viaHtml = r.isConnect ? `<div class="via-tag"><i class="ti ti-transfer"></i>経由: ${r.via}</div>` : "";
+  return `<div class="card">
+    <div class="card-flag">${r.area.includes("欧")?"🌍":r.area.includes("北米")?"🌎":r.area.includes("オセアニア")?"🌏":r.area.includes("アフリカ")?"🌍":"✈"}</div>
+    ${viaHtml}
+    <div class="card-header">
+      <div class="card-route">${r.from}<span class="arrow">→</span>${r.to}</div>
+      <span class="badge ${priceClass(r.price)}">${priceLabel(r.price)}</span>
+    </div>
+    <div class="card-airlines">${r.airlines.map(a=>`<span class="airline-chip">${a}</span>`).join("")}</div>
+    <div class="card-meta">
+      <span><i class="ti ti-calendar"></i><span class="best-month-label">お得: ${bestLabel}</span></span>
+      <span><i class="ti ti-map-pin"></i>${r.area}</span>
+    </div>
+    <div class="month-chart"><div class="month-bars">${bars}</div></div>
+    <div class="card-tip"><i class="ti ti-bulb"></i>${r.tip}</div>
+  </div>`;
+}
+
+function renderSection(key, data, countId, filterFn){
+  const container = document.getElementById("cards-"+key);
+  const filtered = filterFn ? filterFn(data) : data;
+  document.getElementById(countId).textContent = filtered.length+"路線";
+  if(filtered.length===0){
+    container.innerHTML=`<div class="empty" style="grid-column:1/-1"><i class="ti ti-search"></i>条件に合う路線が見つかりません</div>`;
+    return;
+  }
+  container.innerHTML = filtered.map(renderCard).join("");
+}
+
+function filterSection(key){
+  const datasets = {japan:JAPAN, asia:ASIA, connect:CONNECT, europe:EUROPE};
+  const q = (document.getElementById("q-"+key)||{value:""}).value.toLowerCase();
+  const activeArea = window["activeArea_"+key] || "all";
+  const filtered = datasets[key].filter(r=>{
+    const matchQ = q===""||[r.from,r.to,r.area,...r.airlines,r.via||""].some(s=>s.toLowerCase().includes(q));
+    const matchA = activeArea==="all"||r.area===activeArea;
+    return matchQ && matchA;
+  });
+  const container = document.getElementById("cards-"+key);
+  document.getElementById("count-"+key).textContent = filtered.length+"路線";
+  if(filtered.length===0){
+    container.innerHTML=`<div class="empty" style="grid-column:1/-1"><i class="ti ti-search"></i>条件に合う路線が見つかりません</div>`;
+  } else {
+    container.innerHTML = filtered.map(renderCard).join("");
+  }
+}
+
+function buildAreaPills(key, data){
+  const el = document.getElementById("pills-"+key+"-area");
+  if(!el) return;
+  const areas = ["all",...new Set(data.map(r=>r.area))];
+  const labels = {all:"すべて"};
+  el.innerHTML = areas.map(a=>`<button class="pill ${a==="all"?"active":""}" onclick="setArea('${key}','${a}',this)">${labels[a]||a}</button>`).join("");
+}
+
+function setArea(key, area, btn){
+  window["activeArea_"+key] = area;
+  const container = document.getElementById("pills-"+key+"-area");
+  container.querySelectorAll(".pill").forEach(p=>p.classList.remove("active"));
+  btn.classList.add("active");
+  filterSection(key);
+}
+
+function renderAirlines(){
+  document.getElementById("airline-cards").innerHTML = AIRLINES.map(a=>`
+    <div class="airline-card">
+      <div class="airline-icon" style="background:${a.bg}">
+        <span style="font-size:22px">${a.flag}</span>
+      </div>
+      <div class="airline-name">${a.name}</div>
+      <div class="airline-hub"><i class="ti ti-map-pin" style="font-size:12px;vertical-align:-2px;margin-right:3px"></i>${a.hub}</div>
+      <div class="airline-detail"><i class="ti ti-world"></i><span>${a.regions}</span></div>
+      <div class="airline-detail"><i class="ti ti-luggage"></i><span>${a.baggage}</span></div>
+      <div class="card-tip" style="margin-top:8px"><i class="ti ti-bulb"></i>${a.tip}</div>
+    </div>
+  `).join("");
+}
+
+function renderTips(){
+  document.getElementById("tips-grid").innerHTML = TIPS.map(t=>`
+    <div class="tip-card">
+      <div class="tip-icon-wrap"><i class="ti ${t.icon}"></i></div>
+      <div class="tip-title">${t.title}</div>
+      <div class="tip-body">${t.body}</div>
+    </div>
+  `).join("");
+}
+
+function renderCalendar(){
+  const allRoutes = [...JAPAN.slice(0,5), ...ASIA.slice(0,5), ...EUROPE.slice(0,6)];
+  const header = `<tr><th>路線</th>${MONTHS_LABEL.map(m=>`<th>${m}</th>`).join("")}</tr>`;
+  const rows = allRoutes.map(r=>{
+    const mn=Math.min(...r.months), mx=Math.max(...r.months);
+    const cells = r.months.map((v,i)=>{
+      const ratio=(v-mn)/(mx-mn);
+      let bg, col;
+      if(ratio<0.25){bg="#d4edda";col="#155724";}
+      else if(ratio<0.5){bg="#fff3cd";col="#856404";}
+      else if(ratio<0.75){bg="#ffe0cc";col="#a04010";}
+      else{bg="#f8d7da";col="#721c24";}
+      const star = r.bestMonths.includes(MONTHS_KEY[i])?"★":"";
+      return `<td><div class="price-cell" style="background:${bg};color:${col}">${v}${star}</div></td>`;
+    }).join("");
+    return `<tr><td>${r.from.split("(")[0]}→${r.to.split("(")[0]}</td>${cells}</tr>`;
+  }).join("");
+  document.getElementById("cal-table").innerHTML = header+rows;
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+const SECTIONS = ["japan","asia","connect","europe","calendar","airlines","tips"];
+function showSection(key){
+  SECTIONS.forEach(s=>{
+    document.getElementById("section-"+s).style.display = s===key?"":"none";
+  });
+  document.querySelectorAll(".nav-link").forEach((btn,i)=>{
+    btn.classList.toggle("active", SECTIONS[i]===key);
+  });
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+// ============================================================
+// INIT
+// ============================================================
+(function init(){
+  // stats
+  const totalRoutes = JAPAN.length + ASIA.length + CONNECT.length + EUROPE.length;
+  const allAirlines = new Set([...JAPAN,...ASIA,...CONNECT,...EUROPE].flatMap(r=>r.airlines));
+  document.getElementById("total-routes").textContent = totalRoutes;
+  document.getElementById("total-airlines").textContent = allAirlines.size+"+";
+
+  // sections
+  renderSection("japan", JAPAN, "count-japan");
+  buildAreaPills("japan", JAPAN);
+
+  renderSection("asia", ASIA, "count-asia");
+  buildAreaPills("asia", ASIA);
+
+  renderSection("connect", CONNECT, "count-connect");
+
+  renderSection("europe", EUROPE, "count-europe");
+  buildAreaPills("europe", EUROPE);
+
+  renderAirlines();
+  renderTips();
+  renderCalendar();
+})();
+</script>
+</body>
+</html>
